@@ -36,3 +36,14 @@
     transform: rotate(360deg);
   }
 }
+
+.Mana-Pot-Usage {
+  color: transparent;
+  background: url(https://wow.zamimg.com/images/wow/icons/large/inv_potion_137.jpg) no-repeat right center;
+  background-size: 40px 40px;
+  border-radius: 3px;
+}
+
+.Auctions {
+  height: 100%;
+}
