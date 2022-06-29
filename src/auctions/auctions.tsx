@@ -132,7 +132,7 @@ const nexusHub = axios.create({
   timeout: 1000,
 });
 
-const sendDebounce = debounce((value: string) => {
+const sendDebounce = debounce((value: string) => {  
   return nexusHub.get('/search', { params: { query: value }})
 }, 1000, { maxWait: 1500 });
 

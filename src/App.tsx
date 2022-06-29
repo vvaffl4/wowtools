@@ -16,13 +16,18 @@ import QueryStatsIcon from '@mui/icons-material/QueryStats';
 import SummarizeIcon from '@mui/icons-material/Summarize';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import DiamondIcon from '@mui/icons-material/Diamond';
 import Auctions from './auctions/auctions';
 import Logs from './logs/logs';
 import Portal from '@mui/material/Portal';
+import Gear from './gear/gear';
+import Gems from './gems/gems';
 
 const Pages = {
-  "Logs": { Icon: SummarizeIcon, Page: Logs },
-  "Auctions": { Icon: QueryStatsIcon, Page: Auctions }
+  "Gems": { Icon: DiamondIcon, Page: Gems },
+  // "Logs": { Icon: SummarizeIcon, Page: Logs },
+  // "Auctions": { Icon: QueryStatsIcon, Page: Auctions },
+  // "GearPlanner": { Icon: QueryStatsIcon, Page: Gear }
 };
 type PageKeyTypes = keyof typeof Pages;
 
@@ -115,7 +120,7 @@ function App() {
   const backdropContainer = React.useRef(null);
   const defaultContainer = React.useRef(null);
   const [container, setContainer] = React.useState<HTMLElement | null>(null);
-  const [page, setPage] = React.useState<PageKeyTypes>('Logs');
+  const [page, setPage] = React.useState<PageKeyTypes>('Gems');
   const [open, setOpen] = React.useState(false);
 
   const handleDrawerToggle = () => {
