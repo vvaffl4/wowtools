@@ -41,13 +41,13 @@ function Gems() {
   const [selected, setSelected] = React.useState<Gem[]>([]);
 
   React.useEffect(() => {
-    axios.get('/gems.json')
+    axios.get('../../gems.json')
       .then((response) => {
         setGems(response.data);
         setFoundGems(response.data);
       })
       
-    axios.get('/gear.json')
+    axios.get('../../gear.json')
       .then((response) => setGear(response.data))
   }, [])
 
