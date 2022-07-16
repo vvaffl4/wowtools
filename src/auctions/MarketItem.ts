@@ -1,5 +1,5 @@
 export interface PricePoint {
-  marketvalue: number;
+  marketValue: number;
   minBuyout: number;
   quantity: number;
   scannedAt: string;

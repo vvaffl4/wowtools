@@ -22,12 +22,14 @@ import Logs from './logs/logs';
 import Portal from '@mui/material/Portal';
 import Gear from './gear/gear';
 import Gems from './gems/gems';
+import RaidPlanner from './raidplanner/raidplanner';
 
 const Pages = {
   "Gems": { Icon: DiamondIcon, Page: Gems },
-  // "Logs": { Icon: SummarizeIcon, Page: Logs },
-  // "Auctions": { Icon: QueryStatsIcon, Page: Auctions },
-  // "GearPlanner": { Icon: QueryStatsIcon, Page: Gear }
+  "Logs": { Icon: SummarizeIcon, Page: Logs },
+  "Auctions": { Icon: QueryStatsIcon, Page: Auctions },
+  "GearPlanner": { Icon: QueryStatsIcon, Page: Gear },
+  "Raid": { Icon: QueryStatsIcon, Page: RaidPlanner }
 };
 type PageKeyTypes = keyof typeof Pages;
 

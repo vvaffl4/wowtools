@@ -1,0 +1,640 @@
+[
+  {
+    "Name": "Bold Crimson Spinel",
+    "Icon": "inv_jewelcrafting_crimsonspinel_02",
+    "Stats": [
+      { "Strength": 10 }
+    ]
+  },
+  {
+    "Name": "Bright Crimson Spinel",
+    "Icon": "inv_jewelcrafting_crimsonspinel_02",
+    "Stats": [
+      { "AttackPower": 20 }
+    ]
+  },
+  {
+    "Name": "Delicate Crimson Spinel",
+    "Icon": "inv_jewelcrafting_crimsonspinel_02",
+    "Stats": [
+      { "Agility": 10 }
+    ]
+  },
+  {
+    "Name": "Runed Crimson Spinel",
+    "Icon": "inv_jewelcrafting_crimsonspinel_02",
+    "Stats": [
+      { "SpellPower": 12 }
+    ]
+  },
+  {
+    "Name": "Subtle Crimson Spinel",
+    "Icon": "inv_jewelcrafting_crimsonspinel_02",
+    "Stats": [
+      { "DodgeRating": 10 }
+    ]
+  },
+  {
+    "Name": "Teardrop Crimson Spinel",
+    "Icon": "inv_jewelcrafting_crimsonspinel_02",
+    "Stats": [
+      { "HealPower": 22 }
+    ]
+  },
+  {
+    "Name": "Flashing Crimson Spinel",
+    "Icon": "inv_jewelcrafting_crimsonspinel_02",
+    "Stats": [
+      { "Parry": 10 }
+    ]
+  },
+  {
+    "Name": "Runed Living Ruby",
+    "Icon": "inv_jewelcrafting_livingruby_03",
+    "Stats": [
+      { "SpellPower": 9 }
+    ]
+  },
+  {
+    "Name": "Delicate Living Ruby",
+    "Icon": "inv_jewelcrafting_livingruby_03",
+    "Stats": [
+      { "Agility": 8 }
+    ]
+  },
+  {
+    "Name": "Bold Living Ruby",
+    "Icon": "inv_jewelcrafting_livingruby_03",
+    "Stats": [
+      { "Strength": 8 }
+    ]
+  },
+  {
+    "Name": "Teardrop Living Ruby",
+    "Icon": "inv_jewelcrafting_livingruby_03",
+    "Stats": [
+      { "HealPower": 18 }
+    ]
+  },
+  {
+    "Name": "Subtle Living Ruby",
+    "Icon": "inv_jewelcrafting_livingruby_03",
+    "Stats": [
+      { "DodgeRating": 8 }
+    ]
+  },
+  {
+    "Name": "Potent Pyrestone",
+    "Icon": "inv_jewelcrafting_pyrestone_02",
+    "Stats": [
+      { "SpellCritRating": 5 },
+      { "SpellPower": 6 }
+    ]
+  },
+  {
+    "Name": "Luminous Pyrestone",
+    "Icon": "inv_jewelcrafting_pyrestone_02",
+    "Stats": [
+      { "Luminous": 11 },
+      { "Intellect": 5 }
+    ]
+  },
+  {
+    "Name": "Glinting Pyrestone",
+    "Icon": "inv_jewelcrafting_pyrestone_02",
+    "Stats": [
+      { "HitRating": 5 },
+      { "Agility": 5 }
+    ]
+  },
+  {
+    "Name": "Inscribed Pyrestone",
+    "Icon": "inv_jewelcrafting_pyrestone_02",
+    "Stats": [
+      { "CritRating": 5 },
+      { "Strength": 5 }
+    ]
+  },
+  {
+    "Name": "Veiled Pyrestone",
+    "Icon": "inv_jewelcrafting_pyrestone_02",
+    "Stats": [
+      { "SpellHitRating": 5 },
+      { "SpellPower": 6 }
+    ]
+  },
+  {
+    "Name": "Wicked Pyrestone",
+    "Icon": "inv_jewelcrafting_pyrestone_02",
+    "Stats": [
+      { "CritRating": 5 },
+      { "AttackPower": 10 }
+    ]
+  },
+  {
+    "Name": "Reckless Pyrestone",
+    "Icon": "inv_jewelcrafting_pyrestone_02",
+    "Stats": [
+      { "SpellHasteRating": 5 },
+      { "SpellPower": 6 }
+    ]
+  },
+  {
+    "Name": "Glinting Noble Topaz",
+    "Icon": "inv_jewelcrafting_nobletopaz_03",
+    "Stats": [
+      { "HitRating": 4 },
+      { "Agility": 4 }
+    ]
+  },
+  {
+    "Name": "Inscribed Noble Topaz",
+    "Icon": "inv_jewelcrafting_nobletopaz_03",
+    "Stats": [
+      { "CritRating": 4 },
+      { "Strength": 4 }
+    ]
+  },
+  {
+    "Name": "Luminous Noble Topaz",
+    "Icon": "inv_jewelcrafting_nobletopaz_03",
+    "Stats": [
+      { "HealPower": 9 },
+      { "Intellect": 4 }
+    ]
+  },
+  {
+    "Name": "Potent Noble Topaz",
+    "Icon": "inv_jewelcrafting_nobletopaz_03",
+    "Stats": [
+      { "SpellCritPower": 4 },
+      { "SpellPower": 5 }
+    ]
+  },
+  {
+    "Name": "Veiled Noble Topaz",
+    "Icon": "inv_jewelcrafting_nobletopaz_03",
+    "Stats": [
+      { "SpellHit": 4 },
+      { "SpellPower": 5 }
+    ]
+  },
+  {
+    "Name": "Wicked Noble Topaz",
+    "Icon": "inv_jewelcrafting_nobletopaz_03",
+    "Stats": [
+      { "CritRating": 4 },
+      { "AttackPower": 8 }
+    ]
+  },
+  {
+    "Name": "Brilliant Lionseye",
+    "Icon": "inv_jewelcrafting_lionseye_02",
+    "Stats": [
+      { "Intellect": 10 }
+    ]
+  },
+  {
+    "Name": "Gleaming Lionseye",
+    "Icon": "inv_jewelcrafting_lionseye_02",
+    "Stats": [
+      { "Intellect": 10 }
+    ]
+  },
+  {
+    "Name": "Smooth Lionseye",
+    "Icon": "inv_jewelcrafting_lionseye_02",
+    "Stats": [
+      { "Intellect": 10 }
+    ]
+  },
+  {
+    "Name": "Thick Lionseye",
+    "Icon": "inv_jewelcrafting_lionseye_02",
+    "Stats": [
+      { "Intellect": 10 }
+    ]
+  },
+  {
+    "Name": "Rigid Lionseye",
+    "Icon": "inv_jewelcrafting_lionseye_02",
+    "Stats": [
+      { "Intellect": 10 }
+    ]
+  },
+  {
+    "Name": "Great Lionseye",
+    "Icon": "inv_jewelcrafting_lionseye_02",
+    "Stats": [
+      { "Intellect": 10 }
+    ]
+  },
+  {
+    "Name": "Mystic Lionseye",
+    "Icon": "inv_jewelcrafting_lionseye_02",
+    "Stats": [
+      { "Intellect": 10 }
+    ]
+  },
+  {
+    "Name": "Quick Lionseye",
+    "Icon": "inv_jewelcrafting_lionseye_02",
+    "Stats": [
+      { "Intellect": 10 }
+    ]
+  },
+  {
+    "Name": "Brilliant Dawnstone",
+    "Icon": "inv_jewelcrafting_dawnstone_03",
+    "Stats": [
+      { "Intellect": 8 }
+    ]
+  },
+  {
+    "Name": "Gleaming Dawnstone",
+    "Icon": "inv_jewelcrafting_dawnstone_03",
+    "Stats": [
+      { "SpellCritRating": 8 }
+    ]
+  },
+  {
+    "Name": "Smooth Dawnstone",
+    "Icon": "inv_jewelcrafting_dawnstone_03",
+    "Stats": [
+      { "CritRating": 8 }
+    ]
+  },
+  {
+    "Name": "Mystic Dawnstone",
+    "Icon": "inv_jewelcrafting_dawnstone_03",
+    "Stats": [
+      { "Resilience": 8 }
+    ]
+  },
+  {
+    "Name": "Great Dawnstone",
+    "Icon": "inv_jewelcrafting_dawnstone_03",
+    "Stats": [
+      { "SpellHitRating": 8 }
+    ]
+  },
+  {
+    "Name": "Rigid Dawnstone",
+    "Icon": "inv_jewelcrafting_dawnstone_03",
+    "Stats": [
+      { "HitRating": 8 }
+    ]
+  },
+  {
+    "Name": "Quick Dawnstone",
+    "Icon": "inv_jewelcrafting_dawnstone_03",
+    "Stats": [
+      { "SpellHasteRating": 8 }
+    ]
+  },
+  {
+    "Name": "Radiant Seaspray Emerald",
+    "Icon": "inv_jewelcrafting_seasprayemerald_02",
+    "Stats": [
+      { "SpellCritRating": 5 },
+      { "SpellPower": 6 }
+    ]
+  },
+  {
+    "Name": "Dazzling Seaspray Emerald",
+    "Icon": "inv_jewelcrafting_seasprayemerald_02",
+    "Stats": [
+      { "Intellect": 5 },
+      { "ManaPer5": 2 }
+    ]
+  },
+  {
+    "Name": "Jagged Seaspray Emerald",
+    "Icon": "inv_jewelcrafting_seasprayemerald_02",
+    "Stats": [
+      { "CritRating": 5 },
+      { "Stamina": 7 }
+    ]
+  },
+  {
+    "Name": "Enduring Seaspray Emerald",
+    "Icon": "inv_jewelcrafting_seasprayemerald_02",
+    "Stats": [
+      { "DefenseRating": 5 },
+      { "Stamina": 7 }
+    ]
+  },
+  {
+    "Name": "Forceful Seaspray Emerald",
+    "Icon": "inv_jewelcrafting_seasprayemerald_02",
+    "Stats": [
+      { "SpellHasteRating": 5 },
+      { "Stamina": 7 }
+    ]
+  },
+  {
+    "Name": "Steady Seaspray Emerald",
+    "Icon": "inv_jewelcrafting_seasprayemerald_02",
+    "Stats": [
+      { "Resilience": 5 },
+      { "Stamina": 7 }
+    ]
+  },
+  {
+    "Name": "Dazzling Talasite",
+    "Icon": "inv_jewelcrafting_talasite_03",
+    "Stats": [
+      { "Intellect": 4 },
+      { "ManaPer5": 4 }
+    ]
+  },
+  {
+    "Name": "Enduring Talasite",
+    "Icon": "inv_jewelcrafting_talasite_03",
+    "Stats": [
+      { "DefenseRating": 4 },
+      { "Stamina": 6 }
+    ]
+  },
+  {
+    "Name": "Jagged Talasite",
+    "Icon": "inv_jewelcrafting_talasite_03",
+    "Stats": [
+      { "CritRating": 4 },
+      { "Stamina": 6 }
+    ]
+  },
+  {
+    "Name": "Radiant Talasite",
+    "Icon": "inv_jewelcrafting_talasite_03",
+    "Stats": [
+      { "SpellCritRating": 4 },
+      { "SpellPenRating": 5 }
+    ]
+  },
+  {
+    "Name": "Steady Talasite",
+    "Icon": "inv_jewelcrafting_talasite_03",
+    "Stats": [
+      { "Resilience": 4 },
+      { "Stamina": 6 }
+    ]
+  },
+  {
+    "Name": "Lustrous Empyrean Sapphire",
+    "Icon": "inv_jewelcrafting_empyreansapphire_02",
+    "Stats": [
+      { "ManaPer5": 4 }
+    ]
+  },
+  {
+    "Name": "Solid Empyrean Sapphire",
+    "Icon": "inv_jewelcrafting_empyreansapphire_02",
+    "Stats": [
+      { "Stamina": 15 }
+    ]
+  },
+  {
+    "Name": "Sparkling Empyrean Sapphire",
+    "Icon": "inv_jewelcrafting_empyreansapphire_02",
+    "Stats": [
+      { "Spirit": 10 }
+    ]
+  },
+  {
+    "Name": "Stormy Empyrean Sapphire",
+    "Icon": "inv_jewelcrafting_empyreansapphire_02",
+    "Stats": [
+      { "SpellPenRating": 13 }
+    ]
+  },
+  {
+    "Name": "Solid Star of Elune",
+    "Icon": "inv_jewelcrafting_starofelune_03",
+    "Stats": [
+      { "Stamina": 12 }
+    ]
+  },
+  {
+    "Name": "Sparkling Star of Elune",
+    "Icon": "inv_jewelcrafting_starofelune_03",
+    "Stats": [
+      { "Spirit": 8 }
+    ]
+  },
+  {
+    "Name": "Balanced Shadowsong Amethyst",
+    "Icon": "inv_jewelcrafting_shadowsongamethyst_02",
+    "Stats": [
+      { "AttackPower": 10 },
+      { "Stamina": 7 }
+    ]
+  },
+  {
+    "Name": "Infused Shadowsong Amethyst",
+    "Icon": "inv_jewelcrafting_shadowsongamethyst_02",
+    "Stats": [
+      { "AttackPower": 10 },
+      { "ManaPer5": 2 }
+    ]
+  },
+  {
+    "Name": "Royal Shadowsong Amethyst",
+    "Icon": "inv_jewelcrafting_shadowsongamethyst_02",
+    "Stats": [
+      { "HealPower": 11 },
+      { "ManaPer5": 2 }
+    ]
+  },
+  {
+    "Name": "Glowing Shadowsong Amethyst",
+    "Icon": "inv_jewelcrafting_shadowsongamethyst_02",
+    "Stats": [
+      { "SpellPower": 6 },
+      { "Stamina": 7 }
+    ]
+  },
+  {
+    "Name": "Sovereign Shadowsong Amethyst",
+    "Icon": "inv_jewelcrafting_shadowsongamethyst_02",
+    "Stats": [
+      { "Strength": 5 },
+      { "Stamina": 7 }
+    ]
+  },
+  {
+    "Name": "Shifting Shadowsong Amethyst",
+    "Icon": "inv_jewelcrafting_shadowsongamethyst_02",
+    "Stats": [
+      { "Agility": 5 },
+      { "Stamina": 7 }
+    ]
+  },
+  {
+    "Name": "Purified Shadowsong Amethyst",
+    "Icon": "inv_jewelcrafting_shadowsongamethyst_02",
+    "Stats": [
+      { "HealPower": 11 },
+      { "Spirit": 5 }
+    ]
+  },
+  {
+    "Name": "Balanced Nightseye",
+    "Icon": "inv_jewelcrafting_nightseye_03",
+    "Stats": [
+      { "AttackPower": 8 },
+      { "Stamina": 6 }
+    ]
+  },
+  {
+    "Name": "Balanced Nightseye",
+    "Icon": "inv_jewelcrafting_nightseye_03",
+    "Stats": [
+      { "AttackPower": 8 },
+      { "Stamina": 6 }
+    ]
+  },
+  {
+    "Name": "Glowing Nightseye",
+    "Icon": "inv_jewelcrafting_nightseye_03",
+    "Stats": [
+      { "SpellPower": 5 },
+      { "Stamina": 6 }
+    ]
+  },
+  {
+    "Name": "Royal Nightseye",
+    "Icon": "inv_jewelcrafting_nightseye_03",
+    "Stats": [
+      { "HealPower": 9 },
+      { "ManaPer5": 2 }
+    ]
+  },
+  {
+    "Name": "Shifting Nightseye",
+    "Icon": "inv_jewelcrafting_nightseye_03",
+    "Stats": [
+      { "Agility": 4 },
+      { "Stamina": 6 }
+    ]
+  },
+  {
+    "Name": "Sovereign Nightseye",
+    "Icon": "inv_jewelcrafting_nightseye_03",
+    "Stats": [
+      { "Strength": 4 },
+      { "Stamina": 6 }
+    ]
+  },
+  {
+    "Name": "Regal Nightseye",
+    "Icon": "inv_jewelcrafting_nightseye_03",
+    "Stats": [
+      { "DodgeRating": 4 },
+      { "Stamina": 6 }
+    ]
+  },
+  {
+    "Name": "Purified Shadow Pearl",
+    "Icon": "inv_misc_gem_pearl_07",
+    "Stats": [
+      { "HealPower": 9 },
+      { "Spirit": 4 }
+    ]
+  },
+  {
+    "Name": "Bracing Earthstorm Diamond",
+    "Icon": "inv_misc_gem_diamond_06",
+    "Stats": [
+      { "HealPower": 26 },
+      { "-Threat": "2%" }
+    ]
+  },
+  {
+    "Name": "Insightful Earthstorm Diamond",
+    "Icon": "inv_misc_gem_diamond_06",
+    "Stats": [
+      { "Intellect": 12 },
+      { "ChanceManaRestore": 300 }
+    ]
+  },
+  {
+    "Name": "Powerful Earthstorm Diamond",
+    "Icon": "inv_misc_gem_diamond_06",
+    "Stats": [
+      { "Stamina": 18 },
+      { "StunResist": "2%" }
+    ]
+  },
+  {
+    "Name": "Relentless Earthstorm Diamond",
+    "Icon": "inv_misc_gem_diamond_06",
+    "Stats": [
+      { "Agility": 12 },
+      { "CritDamage": "2%" }
+    ]
+  },
+  {
+    "Name": "Tenacious Earthstorm Diamond",
+    "Icon": "inv_misc_gem_diamond_06",
+    "Stats": [
+      { "DefenseRating": 12 },
+      { "ChanceHealOnHit": "2%" }
+    ]
+  },
+  {
+    "Name": "Eternal Earthstorm Diamond",
+    "Icon": "inv_misc_gem_diamond_06",
+    "Stats": [
+      { "DefenseRating": 12 },
+      { "BlockValue": "10%" }
+    ]
+  },
+  {
+    "Name": "Chaotic Skyfire Diamond",
+    "Icon": "inv_misc_gem_diamond_07",
+    "Stats": [
+      { "SpellCrit": 12 },
+      { "CritDamage": "3%" }
+    ]
+  },
+  {
+    "Name": "Destructive Skyfire Diamond",
+    "Icon": "inv_misc_gem_diamond_07",
+    "Stats": [
+      { "SpellCrit": 14 },
+      { "SpellReflect": "3%" }
+    ]
+  },
+  {
+    "Name": "Enigmatic Skyfire Diamond",
+    "Icon": "inv_misc_gem_diamond_07",
+    "Stats": [
+      { "SpellCrit": 12 },
+      { "SnareResist": "3%" }
+    ]
+  },
+  {
+    "Name": "Mystical Skyfire Diamond",
+    "Icon": "inv_misc_gem_diamond_07",
+    "Stats": [
+      { "SpellHasteChance": 300 }
+    ]
+  },
+  {
+    "Name": "Swift Skyfire Diamond",
+    "Icon": "inv_misc_gem_diamond_07",
+    "Stats": [
+      { "AttackPower": 24 },
+      { "RunSpeed": "3%" }
+    ]
+  },
+  {
+    "Name": "Ember Skyfire Diamond",
+    "Icon": "inv_misc_gem_diamond_07",
+    "Stats": [
+      { "SpellPower": 14 },
+      { "Intellect": "2%" }
+    ]
+  }
+]
