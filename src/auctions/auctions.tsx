@@ -1,15 +1,14 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useEffect } from 'react';
 
 import { CSSObject, styled, Theme, useTheme } from '@mui/material/styles';
-import { DataGrid, GridCell, GridColDef, GridRenderCellParams, GridRow, GridRowParams, useGridApiRef } from '@mui/x-data-grid';
-import axios, { AxiosInstance } from 'axios';
-import { debounce, DebouncedFunc } from 'lodash';
+import { DataGrid, GridCell, GridColDef, GridRenderCellParams, GridRow, GridRowHeightParams, GridRowParams, useGridApiRef } from '@mui/x-data-grid';
+import axios from 'axios';
+import { debounce } from 'lodash';
 
 import Popover from '@mui/material/Popover';
-import Box from '@mui/material/Box';
-import { Autocomplete, Avatar, Backdrop, Breadcrumbs, Button, Card, CardContent, Divider, Fade, Paper, Stack, TextField, ToggleButton, Typography, TypographyProps } from '@mui/material';
+
+import { Autocomplete, Avatar, Backdrop, Breadcrumbs, Button, Card, CardContent, Chip, Divider, Fade, Paper, Stack, TextField, ToggleButton, Typography, TypographyProps } from '@mui/material';
 import ListItemButton from '@mui/material/ListItemButton';
-import Portal from '@mui/material/Portal';
 
 import {
   Chart as ChartJS,
@@ -22,14 +21,20 @@ import {
   Tooltip,
   Legend,
   Decimation,
+  DecimationAlgorithm,
   DateAdapter,
-  ChartOptions
+  ChartOptions,
+  ChartTypeRegistry
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
-import { ThemeProvider } from '@emotion/react';
 import { SearchItem } from './SearchItem';
 import { MarketItem } from './MarketItem';
 import { GameItem } from './GameItem';
+import PriceDisplay from './PriceDisplay';
+import PriceCategory from './PriceCategory';
+import PriceCompare from './PriceCompare';
+import PriceDetails from './PriceDetails';
+import PriceAuction from './PriceAuction';
 
 const columns: GridColDef[] = [
   {
@@ -59,7 +64,7 @@ const columns: GridColDef[] = [
           { params.value.name }
         </Typography>
       </React.Fragment>
-    )
+    ),
   },
   {
     field: 'priceNGK',
@@ -131,49 +136,6 @@ const columns: GridColDef[] = [
   }
 ];
 
-const PriceDisplay: React.FC<{ price: number, props?: TypographyProps}> = ({price, props}) => {
-  const isMinus = price < 0;
-  const absPrice = Math.abs(price);
-
-  const goldPrice = Math.floor(absPrice / 10000);
-  const silverPrice = Math.floor((absPrice - (goldPrice * 10000)) / 100);
-  const copperPrice = (absPrice - (goldPrice * 10000 + silverPrice * 100));
-  
-  return ( 
-  <React.Fragment>
-    { isMinus && (
-      <Typography component="span" {...props}>
-        -
-      </Typography>
-    )}
-    { goldPrice > 0 && (
-      <React.Fragment>
-        <Typography color='gold' component="span" {...props}>
-        { goldPrice }
-        </Typography>
-        <img alt='gold' src="https://wow.zamimg.com/images/icons/money-gold.gif"/>
-      </React.Fragment>
-    ) }
-    { silverPrice > 0 && (
-      <React.Fragment>
-        <Typography marginLeft={0.5} color='silver' component="span" {...props}>
-          { silverPrice }
-        </Typography>
-        <img alt='silver' src="https://wow.zamimg.com/images/icons/money-silver.gif"/>
-      </React.Fragment>
-    ) }
-    { copperPrice > 0 && (
-      <React.Fragment>
-        <Typography marginLeft={0.5} color='brown' component="span" {...props}>
-          { copperPrice }
-        </Typography>
-        <img alt='copper' src="https://wow.zamimg.com/images/icons/money-copper.gif"/>
-      </React.Fragment>
-    ) }
-  </React.Fragment>
-)
-}
-
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -183,18 +145,19 @@ ChartJS.register(
   Title,
   Tooltip,
   Legend,
-  Decimation,
+  Decimation
 );
 
-export const options: ChartOptions = {
+export const options: ChartOptions<'line'> = {
   responsive: true,
   plugins: {
     legend: {
       position: 'top' as const,
     },
     decimation: {
-      enabled: false,
-      algorithm: 'min-max',
+      enabled: true,
+      algorithm: 'lttb',
+      samples: 10
     },
   },
   maintainAspectRatio: false,
@@ -222,40 +185,43 @@ export const options: ChartOptions = {
   },
 };
 
-const labels = [
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-];
-
-const lineData = {
-  labels: labels,
-  datasets: [{
-    label: 'Price',
-    tension: 0.2,
-    backgroundColor: 'rgb(255, 99, 132)',
-    borderColor: 'rgb(255, 99, 132)',
-    data: [20, 10, 5, 2, 20, 30, 45],
+export const quantityOptions: ChartOptions<'line'> = {
+  responsive: true,
+  plugins: {
+    legend: {
+      position: 'top' as const,
+    },
+    decimation: {
+      enabled: true,
+      algorithm: 'lttb',
+      samples: 10
+    },
   },
-  {
-    label: 'Marketprice',
-    tension: 0.2,
-    backgroundColor: 'rgb(255, 132, 99)',
-    borderColor: 'rgb(255, 132, 99)',
-    data: [10, 25, 10, 2, 29, 40, 25],
-  }]
+  maintainAspectRatio: false,
+  scales: {
+    x: {
+      ticks: {
+        callback: function(value) { 
+          return new Date(this.getLabels()[value as number]).toLocaleDateString('en-GB', { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' }) 
+        },
+      }
+    }
+  },
 };
 
 const nexusHub = axios.create({
   baseURL: 'https://api.nexushub.co/wow-classic/v1',
-  timeout: 1000,
+  timeout: 10000,
+  // headers: {
+  //   'Access-Control-Allow-Origin': '*',
+  //   'Access-Control-Allow-Headers': '*',
+  //   'Access-Control-Allow-Credentials': 'true',
+  //   'Access-Control-Allow-Methods': 'GET, OPTIONS'
+  // }
 });
 
 const sendDebounce = debounce((value: string) => {  
-  return nexusHub.get('/search', { params: { query: value }})
+  return nexusHub.get('/search', { params: { query: value } })
 }, 500, { maxWait: 1000 });
 
 
@@ -276,6 +242,7 @@ function Auctions() {
   const [selectedRow, selectRow] = React.useState<{ ngk: GameItem & MarketItem, pwv: GameItem & MarketItem }>();
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
 
+
   useEffect(() => {
     if ( marketData.length > 0 ) {
       localStorage.setItem('data', JSON.stringify(marketData.map(item => item.ngk.itemId )));
@@ -284,28 +251,6 @@ function Auctions() {
     }
   }, [marketData]);
 
-  const handleTextfieldFocus = () => {
-    setFocus(true);
-  }
-
-  const handleTextfieldBlur = () => {
-    setFocus(false);
-  }
-
-  const handleTextfieldChange = (event: any, value: string) => {
-    console.log(value);
-    
-    if (value.length > 2 && sendDebounce) {
-      sendDebounce(value)?.then((searchResult: { data: SearchItem[] }) => {
-        const searchData = [...(searchResult.data).reduce((a, c)=> {
-          a.set(c.itemId, c);
-          return a;
-        }, new Map()).values()];
-
-        setSearchData(searchData);
-      });
-    }
-  }
 
   const requestItemData = (itemId: number) => {
     return axios.all([
@@ -314,31 +259,25 @@ function Auctions() {
       nexusHub.get(`/items/pyrewood-village-alliance/${itemId}`),
       nexusHub.get(`/items/pyrewood-village-alliance/${itemId}/prices`)
     ])
-  }
-
-  const handleSearchResult = (_: any, value: { itemId: number } | null) => {
-    if (value !== null) {
-      requestItemData(value.itemId)
-        .then(result => {
-          const searchedItemData = result[0].data as GameItem;
-          const searchedMarketData = result[1].data as MarketItem;
-          const PWVSearchedItemData = result[2].data as GameItem;
-          const PWVSearchedMarketData = result[3].data as MarketItem;
-          
-          
-
-          setMarketData([
-            ...marketData, 
-            { ngk: {...searchedItemData, ...searchedMarketData} as GameItem & MarketItem, 
-              pwv: {...PWVSearchedItemData, ...PWVSearchedMarketData} as GameItem & MarketItem
-            }]);
-        });
-    }
-    return null;
+    .then(results => {
+      results.forEach(result => {
+        if (result.status !== 200) {
+          if (result.status === 429) {
+            if (result.headers['Retry-After']) {
+              console.log('Retry-After', result.headers['Retry-After']);
+              
+            }
+          }
+          throw new Error("");
+        }
+      });
+      
+      return results;
+    })
   }
 
   useEffect(() => {
-    console.log(localStorage.getItem('data'));
+    localStorage.clear();
 
     if (marketData.length < 1 && localStorage.getItem('data') !== null) {
       const data: number[] = JSON.parse(localStorage.getItem('data')!);
@@ -358,8 +297,57 @@ function Auctions() {
           }));
         })
     }
+  }, [])
 
-    }, [])
+  const handleSearchResult = (_: any, value: { itemId: number } | null) => {
+    if (value !== null) {
+      requestItemData(value.itemId)
+        .then(result => {
+          const searchedItemData = result[0].data as GameItem;
+          const searchedMarketData = result[1].data as MarketItem;
+          const PWVSearchedItemData = result[2].data as GameItem;
+          const PWVSearchedMarketData = result[3].data as MarketItem;
+
+          console.log(searchedItemData);
+          
+          if ( searchedItemData.stats.current.marketValue !== null ) {
+            setMarketData([
+              ...marketData, 
+              { ngk: {...searchedItemData, ...searchedMarketData} as GameItem & MarketItem, 
+                pwv: {...PWVSearchedItemData, ...PWVSearchedMarketData} as GameItem & MarketItem
+              }
+            ]);
+          }
+        })
+        .catch((reason) => {
+          console.log(reason);
+          console.log(reason.status);
+        });
+    }
+  }
+    
+  const handleTextfieldChange = (event: any, value: string) => {
+    console.log(value);
+    
+    if (value.length > 2 && sendDebounce) {
+      sendDebounce(value)?.then((searchResult: { data: SearchItem[] }) => {
+        const searchData = [...(searchResult.data).reduce((a, c)=> {
+          a.set(c.itemId, c);
+          return a;
+        }, new Map()).values()];
+
+        setSearchData(searchData);
+      });
+    }
+  }
+
+  const handleTextfieldFocus = () => {
+    setFocus(true);
+  }
+
+  const handleTextfieldBlur = () => {
+    setFocus(false);
+  }
 
   const handleOpen = (params: GridRowParams, event: React.MouseEvent<HTMLElement>) => {
     selectRow(params.row as { ngk: GameItem & MarketItem, pwv: GameItem & MarketItem })
@@ -371,8 +359,6 @@ function Auctions() {
   }
 
   const open = Boolean(anchorEl);
-
-  console.log(selectedRow);
 
   return (
     <div className='Auctions'>
@@ -429,7 +415,6 @@ function Auctions() {
         sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={focus}
         onClick={handleClose}/>
-      <Typography></Typography>
       <DataGrid
         rows={marketData}
         columns={columns}
@@ -442,181 +427,158 @@ function Auctions() {
         pageSize={17}
         rowsPerPageOptions={[5]}
       />
-      { (open && selectedRow) && (
-        <Popover 
-          sx={{
-            left: '15px'
-          }}
-          open={open}
+      { (open && anchorEl && selectedRow) && (
+        <PriceAuction
+          anchor={anchorEl}
+          itemRecord={selectedRow}
           onClose={handleClose}
-          anchorEl={anchorEl}
-          anchorOrigin={{
-            vertical: 'top',
-            horizontal: 'left',
-          }}
-          TransitionComponent={Fade}
-          transitionDuration={500}
-        >
-          <Card
-            sx={{
-              width: `${anchorEl?.clientWidth}px`,
-              // height: '500px',
-              backgroundColor: theme.palette.background.paper
-            }}
-          >
-            <CardContent>
-            <Stack
-              direction="row"
-              divider={<Divider orientation="vertical" flexItem />}
-              spacing={5}
-              marginX={1}
-            >
-              <div>
-                <Avatar
-                  sx={{ float: 'left', width: 56, height: 56 }}
-                  src={selectedRow.ngk.icon}
-                  variant="rounded"/>
-                <div style={{ float: 'left'}}>
-                  <Breadcrumbs sx={{ paddingLeft: 1.5 }} aria-label="breadcrumb">
-                    { selectedRow.ngk.tags.map( tag => (
-                      <Typography sx={{ fontSize: 14 }} color="text.secondary">
-                        { tag }
-                      </Typography>
-                    ))}
-                  </Breadcrumbs>
-                  <Typography sx={{ paddingLeft: 1.5 }} variant='h5'>
-                    { selectedRow.ngk.name }
-                  </Typography>
-                </div>
-              </div>
-              <div>
-                <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                  NGK Min Buyout
-                </Typography>
-                <PriceDisplay 
-                  price={ selectedRow.ngk.stats.current.minBuyout }
-                  props={{ fontSize: 22 }}/>
-                <Typography 
-                  component='sup'
-                  sx={{
-                    fontSize: 12,
-                    color: selectedRow.ngk.stats.current.minBuyout - selectedRow.ngk.stats.previous.minBuyout < 0 ? 'red' : 'green'
-                  }}
-                >
-                  { ((selectedRow.ngk.stats.current.minBuyout - selectedRow.ngk.stats.previous.minBuyout) / selectedRow.ngk.stats.previous.minBuyout * 100).toFixed(1) }%
-                </Typography>
-              </div>
-              <div>
-                <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                  PWV Min Buyout
-                </Typography>
-                <PriceDisplay 
-                  price={ selectedRow.pwv.stats.current.minBuyout }
-                  props={{ fontSize: 22 }}/>
-                <Typography 
-                  component='sup'
-                  sx={{
-                    fontSize: 12,
-                    color: selectedRow.pwv.stats.current.minBuyout - selectedRow.pwv.stats.previous.minBuyout < 0 ? 'red' : 'green'
-                  }}
-                >
-                  { ((selectedRow.pwv.stats.current.minBuyout - selectedRow.pwv.stats.previous.minBuyout) / selectedRow.pwv.stats.previous.minBuyout * 100).toFixed(1) }%
-                </Typography>
-              </div>
-              <div>
-                <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                  NGK Market Value
-                </Typography>
-                <PriceDisplay 
-                  price={ selectedRow.ngk.stats.current.marketValue }
-                  props={{ fontSize: 22 }}/>
-                <Typography 
-                  component='sup'
-                  sx={{
-                    fontSize: 12,
-                    color: selectedRow.ngk.stats.current.marketValue - selectedRow.ngk.stats.previous.marketValue < 0 ? 'red' : 'green'
-                  }}
-                >
-                  { ((selectedRow.ngk.stats.current.marketValue - selectedRow.ngk.stats.previous.marketValue) / selectedRow.ngk.stats.previous.marketValue * 100).toFixed(1) }%
-                </Typography>
-              </div>
-              <div>
-                <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                  PWV Market Value
-                </Typography>
-                <PriceDisplay 
-                  price={ selectedRow.pwv.stats.current.marketValue }
-                  props={{ fontSize: 22 }}/>
-                <Typography 
-                  component='sup'
-                  sx={{
-                    fontSize: 12,
-                    color: selectedRow.pwv.stats.current.marketValue - selectedRow.pwv.stats.previous.marketValue < 0 ? 'red' : 'green'
-                  }}
-                >
-                  { ((selectedRow.pwv.stats.current.marketValue - selectedRow.pwv.stats.previous.marketValue) / selectedRow.pwv.stats.previous.marketValue * 100).toFixed(1) }%
-                </Typography>
-              </div>
-            </Stack>
-            <Stack direction={'row'}>
-              <div style={{ width: '50%', height: '200px'}}>
-                <Line
-                  style={{ width: '100%' }}
-                  options={options as any}
-                  title='Min Buyout'
-                  data={{
-                    labels: selectedRow.ngk.data.map(record => new Date(record.scannedAt)),
-                    datasets: [
-                      {
-                        label: 'NGK',
-                        tension: 0.2,
-                        backgroundColor: 'rgb(255, 99, 132)',
-                        borderColor: 'rgb(255, 99, 132)',
-                        data: selectedRow.ngk.data.map(record => record.minBuyout),
-                      },
-                      {
-                        label: 'PWV',
-                        tension: 0.2,
-                        backgroundColor: 'rgb(132, 99, 255)',
-                        borderColor: 'rgb(132, 99, 255)',
-                        data: selectedRow.pwv.data.map(record => record.minBuyout),
-                      },
-                    ]
-                  }}
-                  height='300px'
-                />
-              </div>
-              <div style={{ width: '50%', height: '200px'}}>
-                <Line
-                  style={{ width: '100%' }}
-                  options={options as any}
-                  title='Market Value'
-                  data={{
-                    labels: selectedRow.ngk.data.map(record => new Date(record.scannedAt)),
-                    datasets: [
-                      {
-                        label: 'NGK',
-                        tension: 0.2,
-                        backgroundColor: 'rgb(255, 99, 132)',
-                        borderColor: 'rgb(255, 99, 132)',
-                        data: selectedRow.ngk.data.map(record => record.marketValue),
-                      },
-                      {
-                        label: 'PWV',
-                        tension: 0.2,
-                        backgroundColor: 'rgb(132, 99, 255)',
-                        borderColor: 'rgb(132, 99, 255)',
-                        data: selectedRow.pwv.data.map(record => record.marketValue),
-                      },
-                    ]
-                  }}
-                  height='300px'
-                />
-              </div>
-            </Stack>
-            </CardContent>
-          </Card>
-        </Popover>
+        />
+        // <Popover 
+        //   sx={{
+        //     left: '15px',
+        //   }}
+        //   open={open}
+        //   onClose={handleClose}
+        //   anchorEl={anchorEl}
+        //   anchorOrigin={{
+        //     vertical: 'top',
+        //     horizontal: 'left',
+        //   }}
+        //   TransitionComponent={Fade}
+        //   transitionDuration={500}
+        // >
+        //   <Card
+        //     sx={{
+        //       width: `${anchorEl?.clientWidth}px`,
+        //       backgroundColor: theme.palette.background.paper
+        //     }}
+        //   >
+        //     <CardContent>
+        //     <Stack
+        //       direction="row"
+        //       spacing={3}
+        //       marginX={0.5}
+        //     >
+        //       <PriceDetails
+        //         name={selectedRow.ngk.name}
+        //         icon={selectedRow.ngk.icon}
+        //         tags={selectedRow.ngk.tags}
+        //       />
+        //       <Divider orientation="vertical" flexItem />
+        //       <PriceCategory 
+        //         category='NGK Min Buyout'
+        //         current={selectedRow.ngk.stats.current.minBuyout}
+        //         previous={selectedRow.ngk.stats.previous.minBuyout}
+        //       />
+        //       <PriceCompare
+        //         priceDifference={selectedRow.ngk.stats.current.minBuyout - selectedRow.pwv.stats.current.minBuyout}
+        //       />
+        //       <PriceCategory 
+        //         category='PWV Min Buyout'
+        //         current={selectedRow.pwv.stats.current.minBuyout}
+        //         previous={selectedRow.pwv.stats.previous.minBuyout}
+        //       />
+        //       <Divider orientation="vertical" flexItem/>
+        //       <PriceCategory 
+        //         category='NGK Market Value'
+        //         current={selectedRow.ngk.stats.current.marketValue}
+        //         previous={selectedRow.ngk.stats.previous.marketValue}
+        //       />
+        //       <PriceCompare
+        //         priceDifference={selectedRow.ngk.stats.current.marketValue - selectedRow.pwv.stats.current.marketValue}
+        //       />
+        //       <PriceCategory 
+        //         category='PWV Market Value'
+        //         current={selectedRow.pwv.stats.current.marketValue}
+        //         previous={selectedRow.pwv.stats.previous.marketValue}
+        //       />
+        //     </Stack>
+        //     <Stack direction={'row'}>
+        //       <div style={{ width: '33%', height: '200px'}}>
+        //         <Line
+        //           style={{ width: '100%' }}
+        //           options={options}
+        //           title='Min Buyout'
+        //           data={{
+        //             labels: selectedRow.ngk.data.map(record => new Date(record.scannedAt)),
+        //             datasets: [
+        //               {
+        //                 label: 'NGK',
+        //                 tension: 0.2,
+        //                 backgroundColor: 'rgb(255, 99, 132)',
+        //                 borderColor: 'rgb(255, 99, 132)',
+        //                 data: selectedRow.ngk.data.map(record => record.minBuyout),
+        //               },
+        //               {
+        //                 label: 'PWV',
+        //                 tension: 0.2,
+        //                 backgroundColor: 'rgb(132, 99, 255)',
+        //                 borderColor: 'rgb(132, 99, 255)',
+        //                 data: selectedRow.pwv.data.map(record => record.minBuyout),
+        //               },
+        //             ]
+        //           }}
+        //           height='300px'
+        //         />
+        //       </div>
+        //       <div style={{ width: '33%', height: '200px'}}>
+        //         <Line
+        //           style={{ width: '100%' }}
+        //           options={options}
+        //           title='Market Value'
+        //           data={{
+        //             labels: selectedRow.ngk.data.map(record => new Date(record.scannedAt)),
+        //             datasets: [
+        //               {
+        //                 label: 'NGK',
+        //                 tension: 0.2,
+        //                 backgroundColor: 'rgb(255, 99, 132)',
+        //                 borderColor: 'rgb(255, 99, 132)',
+        //                 data: selectedRow.ngk.data.map(record => record.marketValue),
+        //               },
+        //               {
+        //                 label: 'PWV',
+        //                 tension: 0.2,
+        //                 backgroundColor: 'rgb(132, 99, 255)',
+        //                 borderColor: 'rgb(132, 99, 255)',
+        //                 data: selectedRow.pwv.data.map(record => record.marketValue),
+        //               },
+        //             ]
+        //           }}
+        //           height='300px'
+        //         />
+        //       </div>
+        //       <div style={{ width: '33%', height: '200px'}}>
+        //         <Line
+        //           style={{ width: '100%' }}
+        //           options={quantityOptions}
+        //           title='Quantity'
+        //           data={{
+        //             labels: selectedRow.ngk.data.map(record => new Date(record.scannedAt)),
+        //             datasets: [
+        //               {
+        //                 label: 'NGK',
+        //                 tension: 0.2,
+        //                 backgroundColor: 'rgb(255, 99, 132)',
+        //                 borderColor: 'rgb(255, 99, 132)',
+        //                 data: selectedRow.ngk.data.map(record => record.quantity),
+        //               },
+        //               {
+        //                 label: 'PWV',
+        //                 tension: 0.2,
+        //                 backgroundColor: 'rgb(132, 99, 255)',
+        //                 borderColor: 'rgb(132, 99, 255)',
+        //                 data: selectedRow.pwv.data.map(record => record.quantity),
+        //               },
+        //             ]
+        //           }}
+        //           height='300px'
+        //         />
+        //       </div>
+        //     </Stack>
+        //     </CardContent>
+        //   </Card>
+        // </Popover>
       )}
     </div>
   );
